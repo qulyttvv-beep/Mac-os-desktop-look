@@ -1,0 +1,101 @@
+/* Liquid Glass layers (see liquid.js). Off unless <html> has .lg-on. */
+:root {
+  --lg-tint: rgba(255, 255, 255, 0.1);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --lg-tint: rgba(22, 22, 26, 0.2);
+  }
+}
+
+.lg {
+  isolation: isolate;
+}
+.lg > .lg-layer,
+.lg > .lg-rim {
+  display: none;
+}
+.lg-on .lg > .lg-layer,
+.lg-on .lg > .lg-rim {
+  display: block;
+}
+.lg-on .lg.glass {
+  background: none;
+}
+
+.lg-layer {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+.lg-refract {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.no-wall .lg-layer {
+  background: rgba(128, 128, 128, 0.35);
+}
+.lg-layer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--lg-tint);
+}
+
+/* Specular rim: bright where light hits (top-left), softer on the far edge, faint inner glow. */
+.lg-rim {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 10;
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, var(--lg-rim-a, 0.42)),
+    inset 1.5px 2px 1px -1px rgba(255, 255, 255, 0.8),
+    inset -1px -1.5px 1px -1px rgba(255, 255, 255, 0.42),
+    inset 0 0 16px rgba(255, 255, 255, 0.1),
+    inset 0 -12px 20px -14px rgba(255, 255, 255, 0.14);
+}
+.lg-rim::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.2px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.2) 22%,
+    rgba(255, 255, 255, 0) 45%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.24) 82%,
+    rgba(255, 255, 255, 0.65) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.lg-rim::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(240px circle at var(--mx, 18%) var(--my, -40%), rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 62%);
+  transition: background-position 0.2s;
+}
+@media (prefers-color-scheme: dark) {
+  .lg-rim {
+    --lg-rim-a: 0.24;
+  }
+  .lg-rim::before {
+    opacity: 0.6;
+  }
+}

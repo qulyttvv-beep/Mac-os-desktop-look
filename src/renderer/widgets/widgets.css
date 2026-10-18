@@ -1,0 +1,376 @@
+:root {
+  --card: #ffffff;
+  --face: #fbfbfd;
+  --hand: #1d1d1f;
+  --tick: rgba(0, 0, 0, 0.35);
+  --track: rgba(0, 0, 0, 0.08);
+  --accent-red: #ff3b30;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --card: #1e1e20;
+    --face: #1c1c1e;
+    --hand: #f5f5f7;
+    --tick: rgba(255, 255, 255, 0.4);
+    --track: rgba(255, 255, 255, 0.12);
+  }
+}
+
+.widget {
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  border-radius: 24px;
+  color: var(--text);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.26), 0 0 0 0.5px rgba(0, 0, 0, 0.16);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  animation: appear 0.35s ease-out;
+}
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+}
+.widget.lifted {
+  transform: scale(1.04);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.34), 0 0 0 0.5px rgba(0, 0, 0, 0.16);
+}
+.small {
+  width: 164px;
+  height: 164px;
+}
+.medium {
+  width: 344px;
+  height: 164px;
+}
+.wc {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+/* ---------- styles ---------- */
+.wg-classic .widget {
+  background: var(--card);
+}
+.wg-glass .widget {
+  --text: #fff;
+  --text-2: rgba(255, 255, 255, 0.76);
+  --text-3: rgba(255, 255, 255, 0.45);
+  --hand: #fff;
+  --tick: rgba(255, 255, 255, 0.62);
+  --track: rgba(255, 255, 255, 0.24);
+  --face: transparent;
+  --accent-red: #ff6961;
+  --lg-tint: var(--auto-tint, rgba(255, 255, 255, 0.06));
+  --glass-tint: var(--auto-frost, rgba(0, 0, 0, 0.2));
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.38);
+}
+.lg-on.wg-glass .widget {
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.22);
+}
+.lg-on.wg-glass .widget.lifted {
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- clock ---------- */
+.wg-classic .w-clock {
+  background: var(--face);
+}
+.w-clock .wc {
+  display: grid;
+  place-items: center;
+}
+.w-clock svg {
+  width: 150px;
+  height: 150px;
+}
+.w-clock .num {
+  font-size: 9.5px;
+  font-weight: 600;
+  fill: var(--hand);
+  text-anchor: middle;
+  dominant-baseline: central;
+  font-family: var(--font);
+}
+.w-clock .hand {
+  transform-box: view-box;
+  transform-origin: 50px 50px;
+}
+
+/* ---------- weather ---------- */
+.w-weather .wc {
+  color: #fff;
+  padding: 14px 15px 13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.14);
+}
+.wg-classic .w-weather {
+  background: linear-gradient(180deg, #2a7fe0, #63b5ff);
+}
+.wg-classic .w-weather.clear-night {
+  background: linear-gradient(180deg, #0c1a3a, #2b416f);
+}
+.wg-classic .w-weather.cloudy-day {
+  background: linear-gradient(180deg, #5f7590, #9db0c6);
+}
+.wg-classic .w-weather.cloudy-night {
+  background: linear-gradient(180deg, #252e3f, #4d5a70);
+}
+.wg-classic .w-weather.rain {
+  background: linear-gradient(180deg, #3c4d63, #71849b);
+}
+.wg-classic .w-weather.snow {
+  background: linear-gradient(180deg, #7f97b3, #c5d3e2);
+}
+.wg-classic .w-weather.storm {
+  background: linear-gradient(180deg, #24253a, #57587a);
+}
+.wg-classic .w-weather.fog {
+  background: linear-gradient(180deg, #7d8792, #b5bcc4);
+}
+/* Glass weather keeps a hint of the sky colour */
+.wg-glass .widget.w-weather {
+  --lg-tint: rgba(36, 132, 255, 0.3);
+  --glass-tint: rgba(36, 132, 255, 0.42);
+}
+.wg-glass .widget.w-weather.clear-night,
+.wg-glass .widget.w-weather.cloudy-night,
+.wg-glass .widget.w-weather.storm {
+  --lg-tint: rgba(16, 28, 70, 0.4);
+  --glass-tint: rgba(16, 28, 70, 0.5);
+}
+.wg-glass .widget.w-weather.cloudy-day,
+.wg-glass .widget.w-weather.rain,
+.wg-glass .widget.w-weather.fog,
+.wg-glass .widget.w-weather.snow {
+  --lg-tint: rgba(80, 100, 128, 0.32);
+  --glass-tint: rgba(80, 100, 128, 0.45);
+}
+.wx-city {
+  font-size: 14px;
+  font-weight: 650;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wx-city svg {
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
+}
+.wx-temp {
+  font-size: 42px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-top: 1px;
+}
+.wx-ic {
+  font-size: 20px;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+.wx-cond {
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.wx-hl {
+  font-size: 12.5px;
+  font-weight: 500;
+}
+.wx-msg {
+  font-size: 12.5px;
+  opacity: 0.9;
+  line-height: 1.35;
+}
+.wx-input {
+  width: 100%;
+  height: 26px;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  padding: 0 8px;
+  font-size: 13px;
+  color: #1d1d1f;
+  background: rgba(255, 255, 255, 0.92);
+  margin-top: 6px;
+  text-shadow: none;
+}
+
+/* ---------- calendar ---------- */
+.w-calendar .wc {
+  display: flex;
+  padding: 14px 14px 12px 16px;
+  gap: 12px;
+}
+.cal-left {
+  width: 112px;
+  display: flex;
+  flex-direction: column;
+}
+.cal-left .wd,
+.cal-right .mon {
+  color: var(--accent-red);
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.cal-left .day {
+  font-size: 50px;
+  font-weight: 300;
+  line-height: 1;
+  margin-top: 2px;
+  letter-spacing: -0.03em;
+}
+.cal-left .meta {
+  margin-top: auto;
+  font-size: 11.5px;
+  color: var(--text-2);
+  line-height: 1.45;
+}
+.cal-right {
+  flex: 1;
+}
+.cal-right .mon {
+  margin-bottom: 4px;
+}
+.mgrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 10.5px;
+  font-weight: 600;
+  row-gap: 1px;
+  font-variant-numeric: tabular-nums;
+}
+.mgrid .dow {
+  color: var(--text-2);
+  font-size: 9.5px;
+  padding-bottom: 2px;
+}
+.mgrid .d {
+  height: 17px;
+  display: grid;
+  place-items: center;
+}
+.mgrid .d span {
+  width: 17px;
+  height: 17px;
+  line-height: 17px;
+  border-radius: 50%;
+}
+.mgrid .d.we {
+  color: var(--text-2);
+}
+.mgrid .d.today span {
+  background: #ff3b30;
+  color: #fff;
+  text-shadow: none;
+}
+
+/* ---------- system ---------- */
+.w-system .wc {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+}
+.sys-title {
+  font-size: 12px;
+  font-weight: 650;
+  color: var(--text-2);
+  display: flex;
+  justify-content: space-between;
+}
+.sys-rings {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  margin-top: 6px;
+}
+.ring {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+.ring svg {
+  width: 62px;
+  height: 62px;
+  transform: rotate(-90deg);
+}
+.ring .bg {
+  stroke: var(--track);
+}
+.ring .lbl {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-2);
+}
+.ring .holder {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.ring .val {
+  position: absolute;
+  font-size: 13px;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- notes ---------- */
+.w-notes .wc {
+  display: flex;
+  flex-direction: column;
+}
+.wg-classic .w-notes {
+  background: linear-gradient(180deg, #fff3a6, #ffe88a);
+  --text: #3b3200;
+}
+.wg-glass .widget.w-notes {
+  --lg-tint: rgba(255, 204, 0, 0.16);
+  --glass-tint: rgba(150, 110, 0, 0.35);
+}
+.notes-h {
+  padding: 12px 14px 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #9a7b00;
+  letter-spacing: 0.02em;
+  cursor: grab;
+}
+.wg-glass .notes-h {
+  color: #ffd60a;
+}
+.notes-t {
+  flex: 1;
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  background: transparent;
+  padding: 2px 14px 12px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--text);
+  text-shadow: inherit;
+  user-select: text;
+  cursor: text;
+}
+.notes-t::placeholder {
+  color: var(--text-3, rgba(59, 50, 0, 0.4));
+}
+.wg-classic .notes-t::placeholder {
+  color: rgba(59, 50, 0, 0.4);
+}
+.notes-t::-webkit-scrollbar {
+  width: 0;
+}

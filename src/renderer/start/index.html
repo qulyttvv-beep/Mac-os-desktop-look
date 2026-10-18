@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Start</title>
+    <link rel="stylesheet" href="../common/base.css" />
+    <link rel="stylesheet" href="../common/liquid.css" />
+    <link rel="stylesheet" href="start.css" />
+  </head>
+  <body>
+    <div id="panel" class="glass lg">
+      <label class="search">
+        <span class="sg" id="sg"></span>
+        <input id="q" type="text" placeholder="Search for apps, settings and files" spellcheck="false" autocomplete="off" />
+        <button class="clear" id="clear" title="Clear" tabindex="-1">×</button>
+      </label>
+
+      <div class="views">
+        <!-- home: pinned + recommended -->
+        <section class="view home" id="home">
+          <div class="head">
+            <h2>Pinned</h2>
+            <button class="pill" id="toAll">All apps <span class="chev" id="chevR"></span></button>
+          </div>
+          <div class="pinwrap">
+            <div class="grid" id="grid"></div>
+            <div class="dots" id="dots"></div>
+          </div>
+          <div class="head rec-head" id="recHead"><h2>Recommended</h2></div>
+          <div class="rec" id="rec"></div>
+        </section>
+
+        <!-- every app A–Z -->
+        <section class="view all" id="all">
+          <div class="head">
+            <h2>All apps</h2>
+            <button class="pill" id="back"><span class="chev" id="chevL"></span> Back</button>
+          </div>
+          <div class="list" id="list"></div>
+          <div class="letters" id="letters"></div>
+        </section>
+
+        <!-- search results -->
+        <section class="view results" id="results"></section>
+      </div>
+
+      <footer>
+        <button class="user" id="user" title="Account settings"><span class="av" id="av"></span><span id="uname"></span></button>
+        <div class="tools">
+          <button data-folder="documents" title="Documents" id="fDocs"></button>
+          <button data-folder="downloads" title="Downloads" id="fDl"></button>
+          <button data-folder="pictures" title="Pictures" id="fPics"></button>
+          <button id="settingsBtn" title="Settings"></button>
+          <button id="powerBtn" title="Power"></button>
+        </div>
+        <div class="powermenu" id="powermenu">
+          <button data-op="lock"><span id="pLock"></span>Lock</button>
+          <button data-op="sleep"><span id="pSleep"></span>Sleep</button>
+          <button data-op="logout"><span id="pOut"></span>Sign out</button>
+          <div class="sep"></div>
+          <button data-op="restart"><span id="pRestart"></span>Restart</button>
+          <button data-op="shutdown"><span id="pShut"></span>Shut down</button>
+        </div>
+      </footer>
+    </div>
+    <script src="../common/icons.js"></script>
+    <script src="../common/glass.js"></script>
+    <script src="../common/liquid.js"></script>
+    <script src="start.js"></script>
+  </body>
+</html>

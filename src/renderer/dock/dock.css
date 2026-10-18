@@ -1,0 +1,180 @@
+:root {
+  --S: 52px;
+  --dot: rgba(0, 0, 0, 0.75);
+  --dock-border: rgba(255, 255, 255, 0.45);
+  --glass-tint: rgba(255, 255, 255, 0.32);
+  --tip-bg: rgba(236, 236, 240, 0.92);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --dot: rgba(255, 255, 255, 0.85);
+    --dock-border: rgba(255, 255, 255, 0.2);
+    --glass-tint: rgba(36, 36, 40, 0.42);
+    --tip-bg: rgba(40, 40, 44, 0.92);
+  }
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+#wrap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6px;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  transition: bottom 0.34s cubic-bezier(0.25, 0.9, 0.3, 1);
+}
+#wrap.hidden {
+  bottom: calc(-1 * (var(--S) + 40px));
+  transition-timing-function: cubic-bezier(0.5, 0, 0.75, 0.3);
+  transition-duration: 0.28s;
+}
+
+#dock {
+  position: relative;
+  height: calc(var(--S) + 14px);
+  padding: 0 6px;
+  pointer-events: auto;
+}
+#bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 19px;
+  box-shadow: inset 0 0 0 0.6px var(--dock-border), 0 0 0 0.5px rgba(0, 0, 0, 0.18), 0 8px 26px rgba(0, 0, 0, 0.22);
+}
+.no-wall #bg {
+  background: var(--glass-fallback);
+}
+/* Liquid Glass dock: clearer, rounder, lit rim instead of a hairline border */
+.lg-on #bg {
+  --lg-tint: rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.26), 0 0 0 0.5px rgba(0, 0, 0, 0.12);
+}
+.lg-on #dock {
+  height: calc(var(--S) + 16px);
+}
+@media (prefers-color-scheme: dark) {
+  .lg-on #bg {
+    --lg-tint: rgba(24, 24, 28, 0.16);
+  }
+}
+
+#items {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  padding-bottom: 7px;
+}
+
+.it {
+  position: relative;
+  width: var(--S);
+  height: var(--S);
+  flex-shrink: 0;
+}
+.it .ico {
+  position: absolute;
+  inset: 0;
+  filter: drop-shadow(0 1.5px 2.5px rgba(0, 0, 0, 0.28));
+  transform-origin: 50% 100%;
+}
+.it .ico svg,
+.it .ico img {
+  width: 100%;
+  height: 100%;
+  -webkit-user-drag: none;
+}
+.it:active .ico {
+  filter: drop-shadow(0 1.5px 2.5px rgba(0, 0, 0, 0.28)) brightness(0.6);
+}
+.it .dot {
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: var(--dot);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.it.running .dot {
+  opacity: 1;
+}
+.it.bounce .ico {
+  animation: bounce 0.62s cubic-bezier(0.3, 0, 0.5, 1) infinite;
+}
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  45% {
+    transform: translateY(calc(var(--S) * -0.62));
+    animation-timing-function: cubic-bezier(0.5, 0, 0.7, 0.4);
+  }
+}
+.it.dragging {
+  opacity: 0.35;
+}
+
+.sep {
+  width: 1px;
+  align-self: stretch;
+  margin: 9px 6px 2px;
+  background: rgba(0, 0, 0, 0.18);
+  box-shadow: 1px 0 0 rgba(255, 255, 255, 0.25);
+  flex-shrink: 0;
+}
+@media (prefers-color-scheme: dark) {
+  .sep {
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: none;
+  }
+}
+
+#tip {
+  position: absolute;
+  padding: 4px 11px;
+  border-radius: 7px;
+  background: var(--tip-bg);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.25), 0 3px 12px rgba(0, 0, 0, 0.2);
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.1s;
+}
+#tip.show {
+  opacity: 1;
+}
+.lg-on #tip {
+  border-radius: 10px;
+  background: rgba(250, 250, 252, 0.72);
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.7),
+    inset 1px 1.5px 1px -1px rgba(255, 255, 255, 0.9),
+    0 0 0 0.5px rgba(0, 0, 0, 0.18),
+    0 6px 18px rgba(0, 0, 0, 0.2);
+}
+@media (prefers-color-scheme: dark) {
+  .lg-on #tip {
+    background: rgba(40, 40, 46, 0.7);
+    box-shadow:
+      inset 0 0 0 0.5px rgba(255, 255, 255, 0.25),
+      inset 1px 1.5px 1px -1px rgba(255, 255, 255, 0.35),
+      0 6px 18px rgba(0, 0, 0, 0.35);
+  }
+}

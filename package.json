@@ -1,0 +1,72 @@
+{
+  "name": "mac-desktop",
+  "productName": "Mac Desktop",
+  "version": "1.0.0",
+  "description": "macOS-style menu bar, dock, Spotlight, Launchpad and desktop widgets for Windows",
+  "main": "src/main/main.js",
+  "private": true,
+  "scripts": {
+    "start": "node scripts/start.js",
+    "stop": "node scripts/start.js --quit",
+    "icon": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/make-icon.ps1",
+    "package": "electron-packager . \"Mac Desktop\" --platform=win32 --arch=x64 --out=dist --overwrite --icon=build/icon.ico --app-copyright=\"Mac Desktop\" --win32metadata.FileDescription=\"Mac Desktop\" --win32metadata.ProductName=\"Mac Desktop\" --ignore=^/dist --ignore=^/scripts --ignore=\"node_modules/koffi/build/koffi/(?!win32_x64)\" --ignore=\"node_modules/koffi/(src|doc|vendor)\"",
+    "dist": "electron-builder --win nsis --x64"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.1.0",
+    "koffi": "^2.9.0"
+  },
+  "devDependencies": {
+    "@electron/packager": "^18.3.0",
+    "electron": "^38.0.0",
+    "electron-builder": "^26.15.3"
+  },
+  "allowScripts": {
+    "electron@38.8.6": true,
+    "koffi@2.16.3": true
+  },
+  "author": "qulyttvv-beep",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qulyttvv-beep/Mac-os-desktop-look.git"
+  },
+  "build": {
+    "appId": "MacDesktop.Shell",
+    "productName": "Mac Desktop",
+    "copyright": "Mac Desktop",
+    "asar": false,
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "files": [
+      "src/**/*",
+      "build/icon.ico",
+      "package.json",
+      "!node_modules/koffi/build/koffi/!(win32_x64)/**",
+      "!node_modules/koffi/{src,doc,vendor}/**"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "build/icon.ico",
+      "executableName": "Mac Desktop"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "runAfterFinish": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Mac Desktop",
+      "artifactName": "Mac-Desktop-Setup-${version}.exe",
+      "deleteAppDataOnUninstall": false
+    }
+  }
+}

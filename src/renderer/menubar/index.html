@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Menu Bar</title>
+    <link rel="stylesheet" href="../common/base.css" />
+    <link rel="stylesheet" href="../common/liquid.css" />
+    <link rel="stylesheet" href="menubar.css" />
+  </head>
+  <body>
+    <div id="bar" class="glass on-dark">
+      <div class="side left">
+        <div class="item logo" data-kind="logo"></div>
+        <div class="item app" data-kind="app" id="appname">Finder</div>
+        <div id="menus" class="side"></div>
+      </div>
+      <div class="side right">
+        <div class="item status" data-kind="battery" id="battery" hidden></div>
+        <div class="item status icon" data-kind="wifi" id="wifi"></div>
+        <div class="item status icon" data-act="spotlight" id="search"></div>
+        <div class="item status icon" data-kind="control" id="cc"></div>
+        <div class="item status clock" data-kind="clock" id="clock"></div>
+      </div>
+    </div>
+    <script src="../common/icons.js"></script>
+    <script src="../common/glass.js"></script>
+    <script src="menubar.js"></script>
+  </body>
+</html>

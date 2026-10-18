@@ -1,0 +1,97 @@
+@font-face {
+  font-family: 'InterVar';
+  src: url('../../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: block;
+}
+@font-face {
+  font-family: 'InterVar';
+  src: url('../../../node_modules/@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: block;
+  unicode-range: U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+:root {
+  --font: 'SF Pro Text', 'SF Pro Display', 'InterVar', 'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif;
+  --accent: #0a84ff;
+  --accent-strong: #0064e1;
+  --red: #ff3b30;
+  --orange: #ff9500;
+  --yellow: #ffcc00;
+  --green: #34c759;
+
+  --text: #1d1d1f;
+  --text-2: rgba(0, 0, 0, 0.55);
+  --text-3: rgba(0, 0, 0, 0.3);
+  --sep: rgba(0, 0, 0, 0.1);
+  --menu-bg: rgba(236, 236, 240, 0.78);
+  --menu-solid: #ececf0;
+  --menu-border: rgba(0, 0, 0, 0.14);
+  --menu-hi: #2f6fe8;
+  --tile: rgba(255, 255, 255, 0.55);
+  --tile-border: rgba(0, 0, 0, 0.06);
+  --glass-tint: rgba(246, 246, 248, 0.62);
+  --glass-fallback: rgba(236, 236, 240, 0.92);
+  --shadow: 0 10px 34px rgba(0, 0, 0, 0.28), 0 0 0 0.5px rgba(0, 0, 0, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #f5f5f7;
+    --text-2: rgba(255, 255, 255, 0.6);
+    --text-3: rgba(255, 255, 255, 0.32);
+    --sep: rgba(255, 255, 255, 0.12);
+    --menu-bg: rgba(38, 38, 42, 0.78);
+    --menu-solid: #26262a;
+    --menu-border: rgba(255, 255, 255, 0.14);
+    --menu-hi: #2f6fe8;
+    --tile: rgba(255, 255, 255, 0.1);
+    --tile-border: rgba(255, 255, 255, 0.08);
+    --glass-tint: rgba(30, 30, 34, 0.55);
+    --glass-fallback: rgba(34, 34, 38, 0.92);
+    --shadow: 0 10px 34px rgba(0, 0, 0, 0.5), 0 0 0 0.5px rgba(255, 255, 255, 0.18);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 13px;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  overflow: hidden;
+  cursor: default;
+}
+
+input,
+textarea,
+button {
+  font-family: inherit;
+  color: inherit;
+}
+
+/* Frosted glass: a pre-blurred copy of the wallpaper pinned to screen coordinates. */
+.glass {
+  background-image: linear-gradient(var(--glass-tint), var(--glass-tint)), var(--wall, none);
+  background-size: auto, var(--wall-size, cover);
+  background-position: 0 0, var(--wall-pos, 0 0);
+  background-attachment: fixed, fixed;
+  background-repeat: no-repeat;
+}
+.no-wall .glass {
+  background: var(--glass-fallback);
+}
+
+svg {
+  display: block;
+}
